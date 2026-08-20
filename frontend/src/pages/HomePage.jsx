@@ -6,7 +6,7 @@ import './HomePage.css';
 // HomePage Component (Task 1)
 // Displays MedCare Plus Hospital info & demonstrates reusable AppointmentCard with props
 const HomePage = () => {
-  // Sample appointments demonstrating AppointmentCard props and 3 different statuses
+  // Rich sample appointments demonstrating AppointmentCard props and varied clinical statuses
   const sampleAppointments = [
     {
       id: 1,
@@ -31,6 +31,30 @@ const HomePage = () => {
       date: '2026-08-24',
       timeSlot: '11:00 AM',
       status: 'cancelled',
+    },
+    {
+      id: 4,
+      patientName: 'Pooja Sharma',
+      doctorName: 'Dr. Sneha Mehta',
+      date: '2026-08-27',
+      timeSlot: '04:00 PM',
+      status: 'confirmed',
+    },
+    {
+      id: 5,
+      patientName: 'Vikram Joshi',
+      doctorName: 'Dr. Vikram Singh',
+      date: '2026-08-28',
+      timeSlot: '09:30 AM',
+      status: 'pending',
+    },
+    {
+      id: 6,
+      patientName: 'Kavita Patel',
+      doctorName: 'Dr. Ananya Roy',
+      date: '2026-08-29',
+      timeSlot: '12:00 PM',
+      status: 'confirmed',
     },
   ];
 
@@ -120,7 +144,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Recent Appointments Showcase (Demonstrates AppointmentCard with props) */}
+      {/* Recent Appointments Showcase */}
       <section className="showcase-section">
         <div className="section-header-flex">
           <div>

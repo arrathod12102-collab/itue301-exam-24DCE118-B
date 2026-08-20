@@ -19,7 +19,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ============================================
-// In-Memory Data (Task 3)
+// Rich In-Memory Data (Task 3)
 // ============================================
 const inMemoryDoctors = [
   {
@@ -41,7 +41,7 @@ const inMemoryDoctors = [
     name: 'Dr. Amit Desai',
     email: 'amit.desai@medcareplus.com',
     specialisation: 'Orthopedics',
-    available: false,
+    available: true,
   },
   {
     id: 4,
@@ -55,6 +55,13 @@ const inMemoryDoctors = [
     name: 'Dr. Vikram Singh',
     email: 'vikram.singh@medcareplus.com',
     specialisation: 'Neurology',
+    available: false,
+  },
+  {
+    id: 6,
+    name: 'Dr. Ananya Roy',
+    email: 'ananya.roy@medcareplus.com',
+    specialisation: 'General Medicine',
     available: true,
   },
 ];
@@ -67,7 +74,7 @@ let inMemoryAppointments = [
     date: '2026-08-25',
     timeSlot: '10:00 AM',
     status: 'confirmed',
-    reason: 'Regular heart checkup',
+    reason: 'Routine ECG checkup & hypertension consultation',
   },
   {
     id: 2,
@@ -76,7 +83,7 @@ let inMemoryAppointments = [
     date: '2026-08-26',
     timeSlot: '02:30 PM',
     status: 'pending',
-    reason: 'Skin allergy consultation',
+    reason: 'Skin allergy and cosmetology consultation',
   },
   {
     id: 3,
@@ -85,7 +92,34 @@ let inMemoryAppointments = [
     date: '2026-08-24',
     timeSlot: '11:00 AM',
     status: 'cancelled',
-    reason: 'Knee pain follow-up',
+    reason: 'Right knee arthroscopy scan & follow-up',
+  },
+  {
+    id: 4,
+    patientName: 'Pooja Sharma',
+    doctorName: 'Dr. Sneha Mehta',
+    date: '2026-08-27',
+    timeSlot: '04:00 PM',
+    status: 'confirmed',
+    reason: 'Infant immunization & growth monitoring checkup',
+  },
+  {
+    id: 5,
+    patientName: 'Vikram Joshi',
+    doctorName: 'Dr. Vikram Singh',
+    date: '2026-08-28',
+    timeSlot: '09:30 AM',
+    status: 'pending',
+    reason: 'Chronic migraine and neuro assessment',
+  },
+  {
+    id: 6,
+    patientName: 'Kavita Patel',
+    doctorName: 'Dr. Ananya Roy',
+    date: '2026-08-29',
+    timeSlot: '12:00 PM',
+    status: 'confirmed',
+    reason: 'Seasonal viral fever & comprehensive blood evaluation',
   },
 ];
 
@@ -158,7 +192,6 @@ app.use('/api/v1/db/patients', patientRoutes);
 
 // ============================================
 // Global Error-Handling Middleware (Task 3)
-// Must be the LAST middleware
 // ============================================
 app.use(errorHandler);
 
@@ -167,24 +200,13 @@ app.use(errorHandler);
 // ============================================
 const startServer = async () => {
   try {
-    // Connect to MongoDB (Task 5)
     if (process.env.MONGO_URI) {
       await connectDB();
       console.log('MongoDB connected successfully');
-    } else {
-      console.log('MONGO_URI not set - running without MongoDB (in-memory mode only)');
     }
 
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
-      console.log('API Endpoints:');
-      console.log(`  GET  http://localhost:${PORT}/api/v1/doctors`);
-      console.log(`  GET  http://localhost:${PORT}/api/v1/appointments`);
-      console.log(`  POST http://localhost:${PORT}/api/v1/appointments`);
-      console.log('MongoDB Endpoints (when connected):');
-      console.log(`  GET/POST http://localhost:${PORT}/api/v1/db/doctors`);
-      console.log(`  GET/POST http://localhost:${PORT}/api/v1/db/appointments`);
-      console.log(`  GET/POST http://localhost:${PORT}/api/v1/db/patients`);
     });
   } catch (error) {
     console.error('Failed to start server:', error.message);
