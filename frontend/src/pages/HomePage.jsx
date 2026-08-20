@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import AppointmentCard from '../components/AppointmentCard';
 import './HomePage.css';
 
+// HomePage Component (Task 1)
+// Displays MedCare Plus Hospital info & demonstrates reusable AppointmentCard with props
 const HomePage = () => {
-  // Sample appointment data to demonstrate AppointmentCard with props (Task 1)
+  // Sample appointments demonstrating AppointmentCard props and 3 different statuses
   const sampleAppointments = [
     {
       id: 1,
@@ -31,51 +34,132 @@ const HomePage = () => {
     },
   ];
 
+  const departments = [
+    { name: 'Cardiology', icon: '❤️', doctors: '8 Specialists', desc: 'Heart care, ECG, bypass surgery & angiography' },
+    { name: 'Dermatology', icon: '✨', doctors: '6 Specialists', desc: 'Skin treatments, cosmetology & allergy tests' },
+    { name: 'Neurology', icon: '🧠', doctors: '5 Specialists', desc: 'Brain & spine disorders, neuro-trauma care' },
+    { name: 'Orthopedics', icon: '🦴', doctors: '7 Specialists', desc: 'Joint replacement, fracture & sports medicine' },
+    { name: 'Pediatrics', icon: '👶', doctors: '9 Specialists', desc: 'Child health, immunization & neonatal ICU' },
+    { name: 'Emergency Care', icon: '🚨', doctors: '24/7 On-Duty', desc: 'Instant ICU trauma & emergency ambulances' },
+  ];
+
   return (
-    <div className="home-page">
-      <section className="hero">
+    <div className="home-container">
+      {/* Hero Section */}
+      <section className="hero-luxury">
+        <div className="hero-mesh-glow"></div>
         <div className="hero-content">
-          <h1>Welcome to <span className="highlight">MedCare Plus</span></h1>
-          <p className="hero-subtitle">
-            Your trusted partner in healthcare. Book appointments with top
-            specialists quickly and easily.
+          <div className="hero-pill-badge">
+            <span className="badge-pulse"></span>
+            <span>AI-POWERED HEALTHCARE EXCELLENCE</span>
+          </div>
+
+          <h1 className="hero-title">
+            Next-Generation <br />
+            <span className="hero-gradient-text">Hospital Appointments</span> & Care
+          </h1>
+
+          <p className="hero-description">
+            Experience world-class healthcare with <strong>MedCare Plus</strong>. Connect with board-certified
+            specialists, manage live consultations, and track real-time clinical schedules seamlessly.
           </p>
-          <div className="hero-stats">
-            <div className="stat">
-              <span className="stat-number">50+</span>
-              <span className="stat-label">Doctors</span>
+
+          <div className="hero-cta-group">
+            <Link to="/booking" className="btn-primary-hero">
+              <span>Book Appointment Now</span>
+              <span className="arrow-glow">→</span>
+            </Link>
+            <Link to="/doctors" className="btn-secondary-hero">
+              <span>Explore Specialists</span>
+              <span className="doc-icon">👨‍⚕️</span>
+            </Link>
+          </div>
+
+          {/* Stats Bar */}
+          <div className="stats-glass-bar">
+            <div className="stat-item">
+              <span className="stat-val">50+</span>
+              <span className="stat-title">Senior Doctors</span>
             </div>
-            <div className="stat">
-              <span className="stat-number">10K+</span>
-              <span className="stat-label">Patients</span>
+            <div className="stat-separator"></div>
+            <div className="stat-item">
+              <span className="stat-val">99.8%</span>
+              <span className="stat-title">Satisfaction Rate</span>
             </div>
-            <div className="stat">
-              <span className="stat-number">15+</span>
-              <span className="stat-label">Specialisations</span>
+            <div className="stat-separator"></div>
+            <div className="stat-item">
+              <span className="stat-val">15+</span>
+              <span className="stat-title">Super Specialties</span>
+            </div>
+            <div className="stat-separator"></div>
+            <div className="stat-item">
+              <span className="stat-val">24/7</span>
+              <span className="stat-title">Emergency Hotline</span>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="recent-appointments">
-        <h2>Recent Appointments</h2>
-        <p className="section-desc">
-          Below are sample appointment cards demonstrating different statuses
-          (confirmed, pending, cancelled).
-        </p>
-        <div className="appointments-grid">
-          {sampleAppointments.map((appointment) => (
+      {/* Departments Grid */}
+      <section className="departments-section">
+        <div className="section-header-centered">
+          <span className="section-eyebrow">SUPER SPECIALTY CLINICS</span>
+          <h2 className="section-heading">Excellence Across Every Discipline</h2>
+          <p className="section-subtext">Equipped with state-of-the-art diagnostic facilities and internationally trained clinicians.</p>
+        </div>
+
+        <div className="departments-grid">
+          {departments.map((dept, idx) => (
+            <div key={idx} className="department-card">
+              <div className="dept-icon-box">{dept.icon}</div>
+              <h3 className="dept-name">{dept.name}</h3>
+              <span className="dept-doc-count">{dept.doctors}</span>
+              <p className="dept-desc">{dept.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Recent Appointments Showcase (Demonstrates AppointmentCard with props) */}
+      <section className="showcase-section">
+        <div className="section-header-flex">
+          <div>
+            <span className="section-eyebrow">LIVE CLINICAL FEED</span>
+            <h2 className="section-heading">Recent Scheduled Appointments</h2>
+            <p className="section-subtext">Dynamic status-coded cards representing verified patient bookings.</p>
+          </div>
+          <Link to="/booking" className="link-action-subtle">
+            Schedule New +
+          </Link>
+        </div>
+
+        <div className="cards-luxury-grid">
+          {sampleAppointments.map((app) => (
             <AppointmentCard
-              key={appointment.id}
-              patientName={appointment.patientName}
-              doctorName={appointment.doctorName}
-              date={appointment.date}
-              timeSlot={appointment.timeSlot}
-              status={appointment.status}
+              key={app.id}
+              patientName={app.patientName}
+              doctorName={app.doctorName}
+              date={app.date}
+              timeSlot={app.timeSlot}
+              status={app.status}
             />
           ))}
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="footer-luxury">
+        <div className="footer-content">
+          <div className="footer-brand">
+            <span className="brand-title">MedCare<span className="brand-plus">Plus</span></span>
+            <p>Advancing modern medicine through compassionate care and technological innovation.</p>
+          </div>
+          <div className="footer-meta">
+            <span>© 2026 MedCare Plus Hospital Network. All Rights Reserved.</span>
+            <span>NABH & JCI Accredited Medical Facility</span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
